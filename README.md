@@ -13,7 +13,7 @@ pnpm dev
 # or
 bun dev
 ```
-Welcome to CodeShare: A Community for Coders by Coders
+Welcome to Codes BLOG: A Community for Coders by Coders
 Introduction
 
 In an ever-evolving digital landscape, the importance of community cannot be overstated. Coders, whether seasoned professionals or enthusiastic beginners, thrive in environments where knowledge is shared, questions are answered, and challenges are collectively overcome. Recognizing this need, we are thrilled to introduce CodeShare – a dynamic platform designed to bring coders together from all corners of the globe to share their code, seek help, and foster collaborative growth.

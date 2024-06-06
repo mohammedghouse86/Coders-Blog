@@ -1,0 +1,12 @@
+.navbar ul{
+    display:flex;
+    justify-content: center;
+    }
+
+.navbar ul li{
+    margin:0 24px;
+    justify-content: center;
+    font-size: xx-large;
+    font-weight: bolder;
+    }
+
