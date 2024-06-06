@@ -1,6 +1,8 @@
+import { Inter } from "next/font/google";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-
+import Style from "../../styles/rashidStyles.module.css";
+const inter = Inter({ subsets: ["latin"] });
 const slug = () => {
 
   const [blogs, setBlogs] = useState([]);
@@ -18,19 +20,24 @@ const slug = () => {
   const { slug } = router.query;
   const title1 = slug
   return (
-    <div>
+<main
+      className={`flex min-h-screen flex-col items-center  ${inter.className}`} /*justify-between p-24 removed*/
+>
+
+    <div className={Style.container}>
       {blogs.length > 0 ? (
         blogs.map((blog, index) => (<div key={index}>
           {blog.title === title1 && <div >
-            <p>{blog.title}</p>
-            <p>{blog.description}</p>
-            <p>Author: {blog.author}</p>
-          </div>}
+            <div className={Style.h2}>{blog.title}</div>
+            <div className={Style.para}>{blog.description}</div>
+            <div className={Style.h3}>Author: {blog.author}</div>
+            </div>}
         </div>))
       ) : (
         <p>Loading...</p>
       )}
     </div>
+    </main>
   )
 }
 
