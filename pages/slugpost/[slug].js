@@ -18,7 +18,7 @@ const slug = (props) => {
   const router = useRouter();
   const { slug } = router.query;
   const title1 = slug
-  console.log('hey man this is the slug =', slug);
+  //console.log('hey man this is the slug =', slug);
   return (
     <main
       className={`flex min-h-screen flex-col items-center  ${inter.className}`} /*justify-between p-24 removed*/
@@ -54,7 +54,7 @@ export async function getStaticPaths() {
   for(let index = 0; index <data1.length; index++) {
     myfile1 ={ params: { slug: data1[index].title } }
     path_arr.push(myfile1);}
-    console.log('these are myfile =', path_arr)
+    //console.log('these are myfile =', path_arr)
   return {
     paths: path_arr,
     fallback: true // false or 'blocking

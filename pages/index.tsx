@@ -9,8 +9,10 @@ import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
 const inter = Inter({ subsets: ["latin"] });
 
 
+// Define the props type using InferGetServerSidePropsType
+type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const Home = (props) => {
+const Home: React.FC<Props> = (props) => {
   
   //console.log('this is props=',props.data1);
   const [blogs, setBlogs] = useState<blog[]>([]);
