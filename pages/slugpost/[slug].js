@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Style from "../../styles/rashidStyles.module.css";
 const inter = Inter({ subsets: ["latin"] });
 import * as fs from 'fs'; //this is to import file reader fs
-const slug = (props) => {
+const Slug = (props) => {
 
   const [blogs, setBlogs] = useState([]);
   //console.log('this is props=',props.data1);
@@ -62,7 +62,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  console.log("yoyoyoyooyoyoyoyoyoyoooooyoyoyo  this is the context = ",context)
+  //console.log("yoyoyoyooyoyoyoyoyoyoooooyoyoyo  this is the context = ",context)
   let data = await fs.promises.readdir('blogpost')
   let myfile;
   let data1 = [];
@@ -75,4 +75,4 @@ export async function getStaticProps(context) {
   return { props: { data1 } }
 }
 
-export default slug
+export default Slug
