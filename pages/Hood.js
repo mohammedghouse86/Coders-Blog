@@ -3,51 +3,58 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Style from "../styles/rashidStyles.module.css";
-import type { InferGetStaticPropsType, GetStaticProps } from 'next';
-import fs from 'fs/promises'; // Use promises version directly
 import dynamic from 'next/dynamic';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const inter = Inter({ subsets: ["latin"] });
 
-const InfiniteScroll = dynamic(() => import('react-infinite-scroll-component'), { ssr: false });
+//const InfiniteScroll = dynamic(() => import('react-infinite-scroll-component'), { ssr: false });
 const MyAnimation = dynamic(() => import('./Animation'), { ssr: false }); // Ensure the path is correct
 
-type Blog = {
-  title: string;
-  description: string;
-  author: string;
-};
-
-type Props = InferGetStaticPropsType<typeof getStaticProps>;
-
-const Home: React.FC<Props> = (props) => {
-  const [blogs, setBlogs] = useState<Blog[]>(props.allblogs);
+const Hood = () => {
+  const [blogs, setBlogs] = useState([]);
   const [hasMore, setHasMore] = useState(true);
+  const [count, setCount] = useState(10);
+  const [totalBlogs, setTotalBlogs] = useState(0);
 
-  const fetchData = () => {
-    let dummyArray = [];
-    for (let index = 0 + dummyArray.length; index < props.allblogs.length && index < 10 + dummyArray.length; index++) {
-      dummyArray.push(props.allblogs[index]);
+  useEffect(() => {
+    const fetchTotalBlogs = async () => {
+      const response = await fetch(`http://localhost:3000/api/getblogtitle`);
+      const data = await response.json();
+      setTotalBlogs(data.length); // Assuming data is an array of blog titles
     }
-    setBlogs((prevBlogs) => [...prevBlogs, ...dummyArray]);
-    setHasMore(blogs.length !== props.allblogs.length);
+    fetchTotalBlogs();
+    //console.log(totalBlogs!==blogs.length)
+  }, [])
+
+  useEffect(() => {
+    console.log("Initial load");
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    //console.log("This is fetch data");
+    const response = await fetch(`http://localhost:3000/api/getblogcontent_InfyScroll/?count=${count}`);
+    const data = await response.json();
+      setBlogs(data);
+      setCount(count+10); // Increment count for the next fetch
+    
   };
 
   return (
     <main className={`flex min-h-screen flex-col items-center ${inter.className}`}>
       <Head><title>CODERS BLOG</title></Head>
-      
+
       <InfiniteScroll
         dataLength={blogs.length}
         next={fetchData}
-        hasMore={hasMore}
+        hasMore={totalBlogs!==blogs.length }
         loader={<MyAnimation />} // Use MyAnimation component as loader
         endMessage={
           <p style={{ textAlign: 'center' }}>
             <b>Yay! You have seen it all</b>
           </p>
         }
-        
       >
         <div className={Style.container}>
           {blogs.length > 0 ? (
@@ -69,14 +76,4 @@ const Home: React.FC<Props> = (props) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const data1 = await fs.readdir('blogpost');
-  const allblogs = await Promise.all(data1.map(async (item) => {
-    const myfile = await fs.readFile(`blogpost/${item}`, 'utf-8');
-    return JSON.parse(myfile);
-  }));
-
-  return { props: { allblogs } };
-};
-
-export default Home;
+export default Hood;

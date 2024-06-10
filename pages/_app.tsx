@@ -13,6 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <nav className={styles.navbar}>
         <ul>
           <Link href="/"><li>Home</li></Link>
+          <Link href="/Hood"><li>Hood</li></Link>
           <Link href="/Blog"><li>Blog</li></Link>
           <Link href="/contact"><li>Contact</li></Link>
         </ul>

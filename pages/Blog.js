@@ -12,7 +12,7 @@ const Blog = (props) => {
 
   useEffect(() => {
     setBlogs(props.allblogs);
-    console.log('this is blog =', blogs);
+    //console.log('this is blog =', blogs);
   }, [props.allblogs]); // Add props.allblogs to dependency array
 
   return (
@@ -23,11 +23,11 @@ const Blog = (props) => {
           blogs.map((blog, index) => (
             <div key={index} className={Style.verticalgap}>
               <Link href={`/slugpost/${blog.title}`}>
-                <div className={Style.h2}>{blog.title}</div>
+                <div className={Style.h2}>{blog.title}</div></Link>
                 <div className={Style.para}>{blog.description.slice(0, 150)}</div>
                 <div className={Style.h3}>Author: {blog.author}</div>
-                <div contentEditable='true' dangerouslySetInnerHTML={{ __html: blog.statement }}></div>
-              </Link>
+                <div contentEditable='false' dangerouslySetInnerHTML={{ __html: blog.statement }}></div>
+              
             </div>
           ))
         ) : (

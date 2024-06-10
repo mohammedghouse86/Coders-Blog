@@ -8,8 +8,10 @@ export default function handler(
   res: NextApiResponse,
 ) {
   fs.readdir('blogpost',(err,data)=>{ //blogpost is the folder containing the data read directory
-    console.log('this is something = ',data);
+    const response = data.length;
     res.status(200).json(data); 
+
+    //return (response);
   })
   
 }
